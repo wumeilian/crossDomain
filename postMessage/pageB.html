@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>postMessageB</title>
+</head>
+<body>
+<h1 id="revMsg">Page B</h1>
+<button id="postMsg">Post Message</button>
+
+<script>
+    var revMsg = document.getElementById('revMsg');
+    var postMsg = document.getElementById('postMsg');
+
+    window.onload = function() {
+        window.addEventListener("message", function(e) {
+            console.log(e, 'B: from A');
+            receiveMsg(e);
+        }, false);
+        
+        postMsg.addEventListener('click', sendMsg)
+    }
+
+    function receiveMsg(event) {
+        if(event.origin !== 'http://127.0.0.1:8083') return;
+
+        revMsg.innerText = event.data.des ? `Messge from: ${event.data.des}, the name is ${event.data.name}` : `Messge from: ${event.data}`;
+        // event.source.postMessage(`Messge from: ${event.data.des}, the name is ${event.data.name} timestamp = ${new Date().getTime()}`, event.origin);
+    }
+    
+
+    function sendMsg() {
+        top.postMessage('Hi, pageA, a message from pageB', 'http://127.0.0.1:8083')
+    }
+
+</script>
+</body>
+</html>
