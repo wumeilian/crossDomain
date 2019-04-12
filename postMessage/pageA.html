@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>postMessageA</title>
+</head>
+<body>
+<h1>Page A</h1>
+<p id="txt"></p>
+<button id="newWin">open new window</button>
+<button id="postMsg">post msg to iframe</button>
+<iframe id="receiverIframe" src="http://127.0.0.1:3000" frameborder="1" width="800" height="500"></iframe>
+
+<script>
+    var test = {
+            "code": 0,
+            "name": "wml",
+            "des": 'this page from pageA'
+        }
+    
+    var openBtn = document.getElementById('newWin');
+    var postMsg = document.getElementById('postMsg');
+    var recIframe = document.getElementById('receiverIframe').contentWindow;
+    var text = document.getElementById('txt');
+
+    window.onload = function() {
+        openBtn.addEventListener('click', openwindow);
+        postMsg.addEventListener('click', sentMsg)
+        window.addEventListener('message', reveiveMsg);
+
+    }
+
+    function openwindow() {
+        var target = 'http://127.0.0.1:3000'
+        var pageB = window.open(target);
+
+        setTimeout(function() {
+          pageB.postMessage(test, target);
+        }, 500)
+    }
+
+    function sentMsg() {
+        recIframe.postMessage('This msg from PageA~', 'http://127.0.0.1:3000/pageB');
+    }
+
+    function reveiveMsg(event) {
+        console.log(event, 'A: from B')
+        text.innerHTML = event.data;
+    }
+</script>
+</body>
+</html>
