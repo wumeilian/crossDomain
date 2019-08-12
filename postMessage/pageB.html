@@ -27,7 +27,7 @@
         if(event.origin !== 'http://127.0.0.1:8083') return;
 
         revMsg.innerText = event.data.des ? `Messge from: ${event.data.des}, the name is ${event.data.name}` : `Messge from: ${event.data}`;
-        // event.source.postMessage(`Messge from: ${event.data.des}, the name is ${event.data.name} timestamp = ${new Date().getTime()}`, event.origin);
+        event.source.postMessage(`Messge from: ${event.data.des}, the name is ${event.data.name} timestamp = ${new Date().getTime()}`, event.origin);
     }
     
 
