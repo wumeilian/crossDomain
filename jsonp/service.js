@@ -2,7 +2,6 @@ var app = require('express')();
 
 app.get('/', function (req, res) {
     res.sendfile(__dirname + '/jsonp.js');
-    // res.send(jsonMethod)
 });
 
 app.listen(8080);
