@@ -5,19 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>jsonp</title>
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
 </head>
 <body>
     wml
 </body>
 <script>
-    var xhr = new XMLHttpRequest(),
-        method = "GET";
-        url = "http://127.0.0.1:8080/";
+    // var xhr = new XMLHttpRequest(),
+    //     method = "GET";
+    //     url = 'http://127.0.0.1:8080';
 
-    xhr.open(method, url, true);
-    xhr.send();
-    xhr.onreadystatechange = function() {
-        console.log(xhr.readyState, xhr.status, xhr.responseText)
+    // xhr.open(method, url, true);
+    // xhr.onreadystatechange = function() {
+    //     console.log(xhr.readyState, xhr.status, XMLHttpRequest,  xhr.responseText)
+    // }
+    // xhr.send();
+
+    function jsonpFetch(src) {
+        var script = document.createElement('script');
+        script.setAttribute('type', 'text/javascript');
+        script.src = src;
+        document.body.appendChild(script);
+    }
+
+    window.onload = function() {
+        jsonpFetch('http://127.0.0.1:8080?callback=foo');
+    }
+
+    function foo(data) {
+        console.log(data)
     }
 </script>
 </html>

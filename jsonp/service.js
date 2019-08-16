@@ -1,12 +1,8 @@
 var app = require('express')();
 
 app.get('/', function (req, res) {
-    // res.sendfile(__dirname + '/pageB.html');
-    res.json({
-        "code": 0,
-        "name": "wml",
-        "age": 26
-    })
+    res.sendfile(__dirname + '/jsonp.js');
+    // res.send(jsonMethod)
 });
 
 app.listen(8080);

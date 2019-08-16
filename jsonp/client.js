@@ -1,7 +1,7 @@
 var app = require('express')();
 
 app.get('/', function (req, res) {
-    res.sendfile(__dirname + '/jsonP.html');
+    res.sendfile(__dirname + '/jsonp.html');
 });
 
 app.listen(3000);
